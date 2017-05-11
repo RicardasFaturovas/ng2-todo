@@ -30,7 +30,6 @@
 
 <div class="container todo-contaner">
   <h2>Todos</h2>
-  <div class="todos">
     <ul *ngFor="let todo of todos">
       <li>
         <div class="todo-element" *ngIf="todo.editing === false" (click)="editTodo(todo)">
@@ -54,12 +53,12 @@
                   {{priority}}
                 </option>
               </select><br>
+
             <button class="btn btn-primary" (click)="updateTodo(todo)">Update todo</button>
             <button class="btn btn-primary" (click)="removeTodo(todo.id)">Delete todo</button>
+            
           </form>
         </div>
-
       </li>
-    </ul>
-  </div>
+  </ul>
 </div>
