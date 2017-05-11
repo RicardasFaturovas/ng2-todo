@@ -3,33 +3,57 @@
 <div id="todos">
   <ul *ngFor="let todo of todos">
     <li>
-      ID: {{todo.id}} Message: {{todo.message}} <br>
-      Completed: {{todo.status}} Priority: {{todo.priority}}<br>
-      <button (click)="removeTodo(todo.id)">Delete todo</button>
+      <div class="todo-element" *ngIf="todo.editing === false" (click)="editTodo(todo)">
+        ID: {{todo.id}} Message: {{todo.message}}<br>
+        Completed: {{todo.status}} Priority: {{todo.priority}}<br>
+        <button (click)="removeTodo(todo.id)">Delete todo</button>
+      </div>
+
+      <div class="editing-todo">
+        <form *ngIf="todo.editing === true" (submit)="updateTodo(todo)">
+          ID: {{todo.id}} <input type="text" name="newMessage"  [(ngModel)]="todo.message"><br>
+          <label>
+            Completed: <input type="checkbox" name="status" [(ngModel)]="todo.status">
+          </label>
+
+          <label>Priority</label>
+            <select name="priority" [(ngModel)]="todo.priority">
+              <option *ngFor="let priority of priorities" [value]="priority">
+                {{priority}}
+              </option>
+            </select><br>
+          <button (click)="updateTodo(todo)">Update todo</button>
+          <button (click)="removeTodo(todo.id)">Delete todo</button>
+        </form>
+      </div>
+
     </li>
   </ul>
 </div>
 
-<h3>Enter todo</h3>
-<form (submit)="addTodo()">
-  <div>
-    <label>Message</label>
-    <input type="text" name="message" [(ngModel)]="message">
-  </div>
+<div class="todo-form">
+  <h3>Enter todo</h3>
+  <form>
+    <div>
+      <label>Message</label>
+      <input type="text" name="message" [(ngModel)]="message">
+    </div>
 
-  <div>
-    <label>Priority</label>
-    <select name="priority" [(ngModel)]="priority">
-      <option *ngFor="let priority of priorities" [value]="priority">
-        {{priority}}
-      </option>
-    </select>
-  </div>
+    <div>
+      <label>Priority</label>
+      <select name="priority" [(ngModel)]="priority">
+        <option *ngFor="let priority of priorities" [value]="priority">
+          {{priority}}
+        </option>
+      </select>
+    </div>
 
-  <div>
-    <label>
-      Completed: <input type="checkbox" name="status" [(ngModel)]="status">
-    </label>
-  </div>
+    <div>
+      <label>
+        Completed: <input type="checkbox" name="status" [(ngModel)]="status">
+      </label>
+    </div>
 
-</form>
+    <button (click)="addTodo()">Submit</button>
+  </form>
+</div>

@@ -5,6 +5,7 @@ export class Todo implements Itodo {
     public id: number,
     public message: string,
     public status: boolean,
-    public priority: number
+    public priority: number,
+    public editing: boolean
   ) { }
 }

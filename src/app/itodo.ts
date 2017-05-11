@@ -3,4 +3,5 @@ export interface Itodo {
   status: boolean;
   message: string;
   priority: number;
+  editing: boolean;
 }

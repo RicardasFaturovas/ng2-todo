@@ -11,32 +11,36 @@ export class TodoComponent implements OnInit {
   public todos: Array<Itodo> = [];
 
   public priorities: Array<number> = [0, 1, 2, 3, 4, 5];
-  public message: string;
-  public status: boolean;
-  public priority: number;
-
+  public message = '';
+  public status = false;
+  public priority = 0;
   constructor() { }
 
+  editTodo(todo: Itodo) {
+    todo.editing = true;
+  }
   addTodo() {
     const newTodo: Itodo = {
-      id: this.todos.length + 1 || 1,
+      id: this.todos.length || 0,
       message: this.message,
-      status: this.status || false,
-      priority: this.priority || 0
+      status: this.status,
+      priority: this.priority,
+      editing: false
     };
     this.todos.push(newTodo);
+    this.message = '';
+    this.status = false;
+    this.priority = 0;
   }
 
   removeTodo(id) {
     this.todos = this.todos.filter(item => item.id !== id);
   }
 
-  updateTodo(id: number, message: string, priority?: number, status?: boolean) {
-    const updatedTodo = this.todos[id];
-
-    updatedTodo.message = updatedTodo.message || message;
-    updatedTodo.status = updatedTodo.status || status;
-    updatedTodo.priority = updatedTodo.priority || priority;
+  updateTodo(todo: Itodo) {
+    const updatedTodoID = todo.id;
+    this.todos[updatedTodoID] = todo;
+    todo.editing = false;
   }
 
   ngOnInit() {
