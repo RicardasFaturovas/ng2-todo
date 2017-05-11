@@ -1,59 +1,65 @@
-<h2>Todos</h2>
-
-<div id="todos">
-  <ul *ngFor="let todo of todos">
-    <li>
-      <div class="todo-element" *ngIf="todo.editing === false" (click)="editTodo(todo)">
-        ID: {{todo.id}} Message: {{todo.message}}<br>
-        Completed: {{todo.status}} Priority: {{todo.priority}}<br>
-        <button (click)="removeTodo(todo.id)">Delete todo</button>
+<h1 class="title">Todos app</h1>
+<div class="container todo-contaner">
+  <div class="form-horizontal">
+    <h3 class="title">Enter todo</h3>
+    <form>
+      <div class="form-group">
+        <label class="control-label">Message</label>
+        <input class="form-control" type="text" name="message" [(ngModel)]="message">
       </div>
 
-      <div class="editing-todo">
-        <form *ngIf="todo.editing === true" (submit)="updateTodo(todo)">
-          ID: {{todo.id}} <input type="text" name="newMessage"  [(ngModel)]="todo.message"><br>
-          <label>
-            Completed: <input type="checkbox" name="status" [(ngModel)]="todo.status">
-          </label>
-
-          <label>Priority</label>
-            <select name="priority" [(ngModel)]="todo.priority">
-              <option *ngFor="let priority of priorities" [value]="priority">
-                {{priority}}
-              </option>
-            </select><br>
-          <button (click)="updateTodo(todo)">Update todo</button>
-          <button (click)="removeTodo(todo.id)">Delete todo</button>
-        </form>
+      <div>
+        <label class="control-label">Priority</label>
+        <select name="priority" [(ngModel)]="priority">
+          <option *ngFor="let priority of priorities" [value]="priority">
+            {{priority}}
+          </option>
+        </select>
       </div>
 
-    </li>
-  </ul>
+      <div>
+        <label class="control-label">
+          Completed: <input type="checkbox" name="status" [(ngModel)]="status">
+        </label>
+      </div>
+
+      <button class="btn btn-primary" (click)="addTodo()">Submit</button>
+    </form>
+  </div>
 </div>
 
-<div class="todo-form">
-  <h3>Enter todo</h3>
-  <form>
-    <div>
-      <label>Message</label>
-      <input type="text" name="message" [(ngModel)]="message">
-    </div>
+<div class="container todo-contaner">
+  <h2>Todos</h2>
+  <div class="todos">
+    <ul *ngFor="let todo of todos">
+      <li>
+        <div class="todo-element" *ngIf="todo.editing === false" (click)="editTodo(todo)">
+          <label class="control-label">ID: </label> {{todo.id}}
+          <label class="control-label">Message: </label> {{todo.message}}<br>
+          <label class="control-label" >Completed: </label> {{todo.status}}
+          <label class="control-label" >Priority: </label> {{todo.priority}}<br>
+          <button class="btn btn-primary" (click)="removeTodo(todo.id)">Delete todo</button>
+        </div>
 
-    <div>
-      <label>Priority</label>
-      <select name="priority" [(ngModel)]="priority">
-        <option *ngFor="let priority of priorities" [value]="priority">
-          {{priority}}
-        </option>
-      </select>
-    </div>
+        <div class="editing-todo">
+          <form *ngIf="todo.editing === true" (submit)="updateTodo(todo)">
+            ID: {{todo.id}} <input class="form-control" type="text" name="newMessage" [(ngModel)]="todo.message"><br>
+            <label>
+              Completed: <input type="checkbox" name="status" [(ngModel)]="todo.status">
+            </label>
 
-    <div>
-      <label>
-        Completed: <input type="checkbox" name="status" [(ngModel)]="status">
-      </label>
-    </div>
+            <label>Priority</label>
+              <select name="priority" [(ngModel)]="todo.priority">
+                <option *ngFor="let priority of priorities" [value]="priority">
+                  {{priority}}
+                </option>
+              </select><br>
+            <button class="btn btn-primary" (click)="updateTodo(todo)">Update todo</button>
+            <button class="btn btn-primary" (click)="removeTodo(todo.id)">Delete todo</button>
+          </form>
+        </div>
 
-    <button (click)="addTodo()">Submit</button>
-  </form>
+      </li>
+    </ul>
+  </div>
 </div>
