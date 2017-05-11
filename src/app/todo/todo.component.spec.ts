@@ -26,9 +26,30 @@ describe('TodoComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should start with an emty todo list', () => {
+    expect(component.todos.length).toBe(0);
+  });
+
+  it('should start with a priority list containing numbers 1-5', () => {
+    expect(component.priorities).toEqual([0, 1, 2, 3, 4, 5])
+  });
+
+  it('should change the todo editing state to true', () => {
+    const testTodo = {
+      id: 0,
+      message: '',
+      status: false,
+      priority: 0,
+      editing: false
+    };
+    component.editTodo(testTodo);
+    expect(testTodo.editing).toBe(true);
+  });
+
+
   it('should add a todo when addTodo is called', () => {
     component.addTodo();
-    
+
     expect(component.todos.length).toBeGreaterThan(0);
   });
 
