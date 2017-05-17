@@ -1,4 +1,4 @@
-import {Itodo} from './itodo';
+import {Itodo} from './interfaces/itodo';
 export class Todo implements Itodo {
 
   constructor(

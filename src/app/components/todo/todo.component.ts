@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Itodo} from '../interfaces/itodo';
-import {Todo} from '../todo';
+import { Itodo } from '../../interfaces/itodo';
+import { Todo } from '../../todo';
+import { TodoService } from '../../services/todo.service';
 
 @Component({
   selector: 'app-todo',
@@ -14,7 +15,8 @@ export class TodoComponent implements OnInit {
   public message = '';
   public status = false;
   public priority = 0;
-  constructor() { }
+  constructor(private _todoService: TodoService) {
+  }
 
   editTodo(todo: Itodo) {
     todo.editing = true;
@@ -44,6 +46,20 @@ export class TodoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._todoService.getTodos()
+    .map(todos => todos
+      .map(todo => {
+        return {
+          id: todo.id,
+          message: todo.title,
+          status: todo.completed,
+          priority: 0,
+          editing: false
+        };
+      }))
+    .subscribe(todos => {
+      this.todos = todos;
+    });
   }
 
 }
