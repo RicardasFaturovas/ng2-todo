@@ -10,17 +10,18 @@ import { TodoService } from '../../services/todo.service';
 })
 export class TodoComponent implements OnInit {
   public todos: Array<Itodo> = [];
-
   public priorities: Array<number> = [0, 1, 2, 3, 4, 5];
   public message = '';
   public status = false;
   public priority = 0;
+
   constructor(private _todoService: TodoService) {
   }
 
   editTodo(todo: Itodo) {
     todo.editing = true;
   }
+
   addTodo() {
     const newTodo: Itodo = {
       id: this.todos.slice(-1)[0].id + 1 || 0,
@@ -47,17 +48,8 @@ export class TodoComponent implements OnInit {
 
   ngOnInit() {
     this._todoService.getTodos()
-    .map(todos => todos
-      .map(todo => {
-        return {
-          id: todo.id,
-          message: todo.title,
-          status: todo.completed,
-          priority: 0,
-          editing: false
-        };
-      }))
     .subscribe(todos => {
+      console.log(todos);
       this.todos = todos;
     });
   }

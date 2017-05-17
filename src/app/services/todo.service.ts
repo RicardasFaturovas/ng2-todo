@@ -13,7 +13,17 @@ export class TodoService {
 
   getTodos(): Observable<Array<any>> {
     return this._http.get(this.url)
-      .map(res => res.json());
+      .map(res => res.json())
+      .map(todos => todos
+        .map(todo => {
+          return {
+            id: todo.id,
+            message: todo.title,
+            status: todo.completed,
+            priority: 0,
+            editing: false
+          };
+        }));
   }
 
 }
