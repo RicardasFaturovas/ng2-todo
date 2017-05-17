@@ -23,7 +23,7 @@ export class TodoComponent implements OnInit {
   }
   addTodo() {
     const newTodo: Itodo = {
-      id: this.todos.length || 0,
+      id: this.todos.slice(-1)[0].id + 1 || 0,
       message: this.message,
       status: this.status,
       priority: this.priority,
